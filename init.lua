@@ -208,12 +208,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 if vim.g.vscode then
-  vim.api.nvim_create_autocmd('Clipboard', {
-    desc = 'Setup clipboard for VSCODE',
-    callback = function()
-      vim.cmd 'set clipboard=unnamedplus'
-    end,
-  })
+  vim.opt.clipboard:append 'unnamedplus'
 end
 
 -- [[ Install `lazy.nvim` plugin manager ]]
