@@ -102,7 +102,7 @@ vim.g.have_nerd_font = true
 vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
--- vim.opt.relativenumber = true
+vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -671,14 +671,14 @@ require('lazy').setup({
         csharp_ls = {},
         zls = {},
         jdtls = {
-          filetypes = { "kotlin", "java"},
+          filetypes = { 'kotlin', 'java' },
           workfspace = { checkThirdParty = false },
         },
         kotlin_language_server = {
-          filetypes = { "kotlin" },
+          filetypes = { 'kotlin' },
           kotlin = {
             signatureHelp = { enabled = true },
-          }
+          },
         },
         -- pyright = {},
         -- rust_analyzer = {},
@@ -934,7 +934,12 @@ require('lazy').setup({
   },
 
   -- Highlight todo, notes, etc in comments
-  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false, highlight = { pattern = [[.*<((KEYWORDS)%(\(.{-1,}\))?):]], } } },
+  {
+    'folke/todo-comments.nvim',
+    event = 'VimEnter',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    opts = { signs = false, highlight = { pattern = [[.*<((KEYWORDS)%(\(.{-1,}\))?):]] } },
+  },
 
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
