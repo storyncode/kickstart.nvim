@@ -1,5 +1,6 @@
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = true - [[ Setting options ]]
+vim.g.have_nerd_font = true 
+-- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
