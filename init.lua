@@ -934,13 +934,21 @@ require('lazy').setup({
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
-    main = 'nvim-treesitter', -- New main module after nvim-treesitter rewrite
-    -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
-    opts = {
-      ensure_installed = { 'bash', 'c', 'cpp', 'diff', 'go', 'gomod', 'gosum', 'html', 'javascript', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'python', 'query', 'typescript', 'vim', 'vimdoc', 'zig' },
-      -- Autoinstall languages that are not installed
-      auto_install = true,
-    },
+    config = function()
+      -- Install parsers for these languages if not already installed
+      local ensure_installed = { 'bash', 'c', 'cpp', 'diff', 'go', 'gomod', 'gosum', 'html', 'javascript', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'python', 'query', 'typescript', 'vim', 'vimdoc', 'zig' }
+      require('nvim-treesitter').install(ensure_installed)
+
+      -- Enable treesitter-based indentation for all buffers
+      vim.api.nvim_create_autocmd('FileType', {
+        callback = function()
+          -- Only set indentexpr if a treesitter parser is available for this filetype
+          if pcall(vim.treesitter.start) then
+            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          end
+        end,
+      })
+    end,
   },
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
@@ -956,7 +964,7 @@ require('lazy').setup({
   -- require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',
-  -- require 'kickstart.plugins.neo-tree',
+  require 'kickstart.plugins.neo-tree',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
